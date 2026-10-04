@@ -252,8 +252,8 @@
 /* -------------------------------------------------------------- hero --- */
 
 /* The vault door owns the middle of the frame. The title deliberately overlaps
-   it — that is the poster composition — while the lede and cue sit in a clean
-   band underneath. */
+   it — that is the poster composition — and the title is the whole first
+   screen: no marginalia, lede, cue or ticker. */
 .hero {
   width: 100%;
   height: 100%;
@@ -263,30 +263,6 @@
   align-items: center;
   text-align: center;
   gap: 1rem;
-}
-
-.hero__top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.hero__foot {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 1.2rem;
-}
-
-.hero__marginalia {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.35rem 1.4rem;
-  color: var(--color-oxblood);
 }
 
 .hero__title {
@@ -310,76 +286,10 @@
   opacity: 0.45;
 }
 
-.hero__lede {
-  font-size: var(--text-lede);
-  max-width: 46ch;
-  opacity: 0.85;
-}
-
-.hero__cue-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  border: 2px solid currentColor;
-  padding: 0.6rem 1.1rem;
-  background: var(--color-parchment);
-}
-
-.hero__cue-arrow {
-  display: inline-block;
-  animation: cue-nudge 1.8s steps(3) infinite;
-}
-
-@keyframes cue-nudge {
-  0%,
-  60% {
-    transform: translateY(0);
-  }
-  80% {
-    transform: translateY(4px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-/* ------------------------------------------------------------ ticker --- */
-
-.ticker {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.5rem 0;
-  background: var(--color-ink);
-  color: var(--color-parchment);
-}
-
-.ticker__rule {
-  flex: 0 0 auto;
-  width: 2.5rem;
-  height: 2px;
-  background: currentColor;
-  opacity: 0.5;
-  margin: 0 1rem;
-}
-
-.ticker__viewport {
-  overflow: hidden;
-  flex: 1 1 auto;
-}
-
-.ticker__track {
-  display: flex;
-  width: max-content;
-  white-space: nowrap;
-}
-
-.ticker__item {
-  padding-right: 3rem;
+/* Wordmark-only hero: the title is the whole first screen, centred on the
+   vault door. */
+.hero--wordmark {
+  justify-content: center;
 }
 
 /* ------------------------------------------------------------- about --- */
@@ -1089,13 +999,25 @@
  * length on purpose — the master progress is derived from document height, so
  * changing the heights here would slide every 3D beat out of sync with its
  * section. Only the pinning goes; the runway stays.
+ *
+ * Because the runway stays, content must be DISTRIBUTED down it. A static
+ * panel bunched at the top of a 400vh section leaves hundreds of pixels of
+ * blank scrolling while the vault keeps animating behind nothing — so panels
+ * fill their section and spread their blocks with space-evenly. Same heights,
+ * same progress mapping, no blank miles.
  */
 @media (max-width: 767.98px) {
+  .section {
+    display: flex;
+    flex-direction: column;
+  }
+
   .section__panel,
   .section__panel--hold {
     position: static;
+    flex: 1 1 auto;
     height: auto;
-    min-height: 0;
+    min-height: 100%;
     padding-top: 4.25rem;
     padding-bottom: 3rem;
   }
@@ -1106,18 +1028,38 @@
     justify-content: flex-start;
   }
 
+  .section__stack {
+    flex: 1 1 auto;
+    justify-content: space-evenly;
+    min-height: 0;
+  }
+
+  /* Direct-card sections (About, Committee, Contact): the card fills the
+     runway and its blocks spread down it. */
+  .section__panel > .panel {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 0;
+  }
+
   .hero {
-    height: auto;
+    height: 100%;
+    justify-content: center;
     gap: 1.6rem;
   }
 
   .goals__track,
   .goals__track--stack {
+    flex: 1 1 auto;
     flex-direction: column;
     align-items: stretch;
+    justify-content: space-evenly;
     width: 100%;
     transform: none;
     gap: 1.5rem;
+    min-height: 0;
   }
 
   .entry,
@@ -1137,18 +1079,33 @@
     margin-bottom: 1.2rem;
   }
 
+  /* The committee carries ten people through a 150vh runway: photos shrink so
+     the whole tier fits instead of spilling into the next section. */
+  .member__photo {
+    max-height: 110px;
+  }
+
   .committee__execs {
     grid-template-columns: 1fr;
     max-width: 22rem;
+    gap: 0.8rem;
+    margin-top: 0.8rem;
   }
 
   .committee__heads {
     grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
   }
 
+  .plate__name {
+    font-size: 0.9rem;
+  }
+
   .events__list {
+    flex: 1 1 auto;
     flex-direction: column;
+    justify-content: space-evenly;
     gap: 1.4rem;
+    min-height: 0;
   }
 
   .event__stamp {
@@ -1157,16 +1114,32 @@
     align-self: flex-end;
   }
 
+  .contact > div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    min-height: 0;
+  }
+
+  /* Absolute like on desktop: in normal flow these two grow the document past
+     its designed height, and the master progress is derived from document
+     height — so every 3D beat would drift out of sync on mobile. */
   .contact__wordmark {
-    position: static;
-    height: auto;
-    margin-top: 1.5rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 18vh;
+    margin-top: 0;
+    overflow: hidden;
   }
 
   .contact__stamp {
-    position: static;
-    margin-top: 1.25rem;
-    align-self: flex-end;
+    position: absolute;
+    bottom: 1.5rem;
+    right: var(--spacing-gutter);
+    margin-top: 0;
   }
 
   .contact__slips {
@@ -1220,15 +1193,11 @@
     width: 100%;
   }
 
-  .hero__cue-arrow {
-    animation: none;
-  }
-
-  .member__tagline,
-  .plate__tagline {
-    opacity: 0.9;
-    transform: none;
-  }
+    .member__tagline,
+    .plate__tagline {
+      opacity: 0.9;
+      transform: none;
+    }
 
   .contact__wordmark {
     position: static;

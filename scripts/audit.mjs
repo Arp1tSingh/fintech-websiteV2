@@ -141,13 +141,19 @@ async function newPage(ctxOpts = {}) {
         visibility: cs.visibility,
         cardBg,
         hasText: (panel.textContent ?? "").trim().length > 40,
+        hasTitle: Boolean(panel.querySelector(".hero__title")),
       };
     }, id);
     sectionVisibility.push(r);
   }
   ok(
     "each section's panel is visible and on an opaque card when it owns the viewport",
-    sectionVisibility.every((s) => s.opacity > 0.95 && s.visibility === "visible" && s.hasText && s.cardBg !== "rgba(0, 0, 0, 0)"),
+    sectionVisibility.every((s) =>
+      s.opacity > 0.95 && s.visibility === "visible" &&
+      // The hero is wordmark-only by owner request: the title sits directly on
+      // the 3D door (the poster composition), so it has no card and little text.
+      (s.id === "hero" ? s.hasTitle : s.hasText && s.cardBg !== "rgba(0, 0, 0, 0)"),
+    ),
     JSON.stringify(sectionVisibility),
   );
 
