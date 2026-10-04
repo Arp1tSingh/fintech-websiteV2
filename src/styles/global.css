@@ -1,0 +1,213 @@
+/* ------------------------------------------------------------------ *
+ * Global reset + the two fixed background layers of "The Ledger":
+ *   1. the ruled-line ledger paper (1px, ~8% opacity, fixed)
+ *   2. the DOM shell the 3D canvas sits behind
+ * Hard rules from DESIGN_BRIEF.md section 2, enforced here once:
+ *   no box-shadow, no blur, no glow, anywhere.
+ * ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--color-parchment);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Section content sits above the ruled paper. */
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--color-oxblood);
+  color: var(--color-parchment);
+}
+
+/* Focus is a ledger stamp, not a glow. */
+:focus-visible {
+  outline: 2px solid var(--color-oxblood);
+  outline-offset: 3px;
+}
+
+.on-ink :focus-visible {
+  outline-color: var(--color-parchment);
+}
+
+/* -------------------------------------------------------------- type --- */
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Mono labels: uppercase, wide tracking. Used for every number and date. */
+.label {
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 0.85vw, 0.78rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.label-lg {
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.measure {
+  max-width: 62ch;
+}
+
+/* --------------------------------------------------------- utilities --- */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  transform: translateY(-160%);
+  background: var(--color-ink);
+  color: var(--color-parchment);
+  padding: 0.6rem 1rem;
+  transition: transform 0.2s var(--ease-out, ease);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* Split-text masks (hero characters, word reveals).
+   inline-block so characters sit on one line; the padding/margin pair gives
+   descenders room inside the mask instead of clipping them. */
+.mask-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+.mask-line > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* ------------------------------------------------------- scrollbar ----- */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-parchment);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink);
+  border: 3px solid var(--color-parchment);
+}
+
+/* ---------------------------------------------------------- lenis ------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* --------------------------------------------------- reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

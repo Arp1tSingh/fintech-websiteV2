@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 400" width="320" height="400" role="img" aria-label="Placeholder portrait">
+  <defs>
+    <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.4" fill="#F1E8D4" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="320" height="400" fill="#2A2325"/>
+  <rect width="320" height="400" fill="url(#dots)"/>
+  <path d="M0 6 L20 0 L44 10 L70 2 L96 12 L124 0 L150 10 L178 2 L204 12 L232 0 L258 10 L286 2 L312 10 L320 4 L320 396 L0 396 Z" fill="#141011"/>
+  <circle cx="160" cy="168" r="62" fill="none" stroke="#F1E8D4" stroke-width="3"/>
+  <text x="160" y="188" text-anchor="middle" font-family="Fraunces Variable, Georgia, serif" font-size="58" font-weight="600" fill="#F1E8D4">JS</text>
+  <text x="160" y="300" text-anchor="middle" font-family="JetBrains Mono Variable, monospace" font-size="17" letter-spacing="4" fill="#F1E8D4" opacity="0.55">PLACEHOLDER</text>
+  <line x1="96" y1="316" x2="224" y2="316" stroke="#F1E8D4" stroke-width="2" opacity="0.5"/>
+  <path d="M0 394 L20 400 L44 390 L70 400 L96 390 L124 400 L150 390 L178 400 L204 390 L232 400 L258 390 L286 400 L312 390 L320 398 L320 400 L0 400 Z" fill="#141011"/>
+</svg>

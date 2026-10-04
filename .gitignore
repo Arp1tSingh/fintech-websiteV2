@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Production build output
+dist/
+
+# Local screenshots and test artifacts
+shots/
+shots-rm/
+test-results/
+playwright-report/
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Logs and OS files
+npm-debug.log*
+.DS_Store
+Thumbs.db

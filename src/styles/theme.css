@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Design tokens. Palette values are the placeholders called out in
+ * DESIGN_BRIEF.md section 2 — swap these three hex values to re-skin the
+ * whole site (DOM and 3D read from here and src/three/palette.ts).
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-parchment: #f1e8d4;
+  --color-oxblood: #5e0f1a;
+  --color-ink: #141011;
+
+  --color-parchment-dim: #e3d7bd;
+  --color-ink-soft: #2a2325;
+
+  --font-display: "Fraunces Variable", "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, monospace;
+
+  --text-hero: clamp(2.6rem, 11.5vw, 11rem);
+  --text-display: clamp(2.4rem, 7.5vw, 7rem);
+  --text-title: clamp(1.75rem, 4vw, 3.5rem);
+  --text-lede: clamp(1.05rem, 1.6vw, 1.5rem);
+
+  --spacing-gutter: clamp(1.25rem, 4vw, 4.5rem);
+}
+
+/* ------------------------------------------------------------------ *
+ * Torn-paper edges. Flat clip-paths, not filters: crisp at any size and
+ * consistent with the "no blur anywhere" rule. Irregular on purpose —
+ * straight cuts are explicitly not allowed (DESIGN_BRIEF.md section 2).
+ * ------------------------------------------------------------------ */
+@utility torn-x {
+  clip-path: polygon(
+    0% 2%, 3% 0.4%, 6% 2.6%, 9% 0.6%, 13% 2.2%, 17% 0.2%, 21% 2.8%, 25% 0.8%,
+    29% 2.4%, 33% 0.4%, 37% 2.6%, 41% 0.6%, 45% 2%, 49% 0.2%, 53% 2.8%, 57% 0.8%,
+    61% 2.4%, 65% 0.4%, 69% 2.6%, 73% 0.6%, 77% 2%, 81% 0.2%, 85% 2.8%, 89% 0.8%,
+    93% 2.4%, 97% 0.4%, 100% 2%,
+    100% 98%, 96% 99.6%, 92% 97.4%, 88% 99.4%, 84% 97.2%, 80% 99.8%, 76% 97.6%,
+    72% 99.2%, 68% 97.4%, 64% 99.6%, 60% 97.8%, 56% 99.4%, 52% 97.2%, 48% 99.8%,
+    44% 97.6%, 40% 99.2%, 36% 97.4%, 32% 99.6%, 28% 97.8%, 24% 99.4%, 20% 97.2%,
+    16% 99.8%, 12% 97.6%, 8% 99.2%, 4% 97.4%, 0% 98%
+  );
+}
+
+@utility torn-photo {
+  clip-path: polygon(
+    0% 1.5%, 4% 0%, 9% 2.2%, 14% 0.4%, 19% 2.6%, 25% 0.2%, 31% 2.4%, 37% 0%,
+    43% 2.8%, 49% 0.4%, 55% 2.2%, 61% 0%, 67% 2.6%, 73% 0.2%, 79% 2.4%, 85% 0%,
+    91% 2.6%, 96% 0.4%, 100% 2%,
+    100% 97.5%, 95% 100%, 90% 97.8%, 85% 99.8%, 79% 97.4%, 73% 100%, 67% 97.6%,
+    61% 99.6%, 55% 97.2%, 49% 100%, 43% 97.8%, 37% 99.6%, 31% 97.4%, 25% 100%,
+    19% 97.6%, 13% 99.8%, 7% 97.4%, 0% 99.5%
+  );
+}
