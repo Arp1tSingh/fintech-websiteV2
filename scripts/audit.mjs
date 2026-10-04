@@ -124,7 +124,7 @@ async function newPage(ctxOpts = {}) {
   // innerText only returns rendered text, so walk each section into view and
   // confirm its panel is actually shown rather than faded out by the handover.
   const sectionVisibility = [];
-  for (const id of ["hero", "about", "goals", "events", "committee", "contact"]) {
+  for (const id of ["hero", "about", "goals", "events", "committee"]) {
     const r = await page.evaluate(async (sectionId) => {
       const el = document.getElementById(sectionId);
       const top = el.getBoundingClientRect().top + window.scrollY;
@@ -165,25 +165,26 @@ async function newPage(ctxOpts = {}) {
     return {
       hasAbout: text.includes("Fintech VIT is the fintech committee"),
       hasGoal: text.includes("Learn by doing"),
-      hasPhone: text.includes("+44 7982 307004"),
+      hasExecs: ["Sanika Chandankar", "Jatin Sharma", "Ajinkya Repale"].every((n) => text.includes(n)),
       canvasGone: !document.querySelector(".vault-canvas"),
-      telLinks: document.querySelectorAll('a[href^="tel:"]').length,
+      copyButtons: document.querySelectorAll(".member__copy").length,
     };
   });
   ok(
     "page content intact with the canvas removed",
-    withoutCanvas.canvasGone && withoutCanvas.hasAbout && withoutCanvas.hasGoal && withoutCanvas.hasPhone,
+    withoutCanvas.canvasGone && withoutCanvas.hasAbout && withoutCanvas.hasGoal && withoutCanvas.hasExecs,
     JSON.stringify(withoutCanvas),
   );
-  ok("three tel: links for the three execs", withoutCanvas.telLinks === 3, `found ${withoutCanvas.telLinks}`);
+  ok("three copy-number buttons, one per exec", withoutCanvas.copyButtons === 3, `found ${withoutCanvas.copyButtons}`);
 
-  /* ------------------------------ 6. phone numbers only in Contact ----- */
+  /* ----------------- 6. exec numbers copy, and live nowhere as text ----- */
+  // Numbers must not be readable off the page (that was the point of removing
+  // the slips); they only leave through the copy button.
   const phonePlacement = await page.evaluate(() => {
-    const committee = document.getElementById("committee")?.textContent ?? "";
-    const contact = document.getElementById("contact")?.textContent ?? "";
-    return { inCommittee: /\+44|\+91/.test(committee), inContact: /\+44 7982 307004/.test(contact) };
+    const text = document.body.textContent ?? "";
+    return { asText: /\+44|\+91/.test(text) };
   });
-  ok("phone numbers appear only in Contact Us", !phonePlacement.inCommittee && phonePlacement.inContact, JSON.stringify(phonePlacement));
+  ok("phone numbers appear nowhere as page text", !phonePlacement.asText, JSON.stringify(phonePlacement));
 
   /* --------------------------- 7. redaction does not hide text -------- */
   const redaction = await page.evaluate(() => {

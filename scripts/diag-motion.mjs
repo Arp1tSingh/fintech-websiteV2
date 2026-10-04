@@ -62,7 +62,9 @@ const probe = () =>
       eventWrap: g(".event", "opacity"),
       eventRedact: scaleX(".event--inverted [data-redact]"),
       stamp: g(".event__stamp", "opacity"),
-      slice: g("[data-slice]", "opacity"),
+      // The Contact slips are gone; the committee panel's own handover fade
+      // takes this slot in the animation census.
+      committeePanel: g("#committee .section__panel", "opacity"),
     };
   });
 

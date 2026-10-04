@@ -44,7 +44,6 @@ const BEATS = [
   ["06-events", 0.665],
   ["07-events-ledger", 0.695],
   ["08-committee", 0.8],
-  ["09-contact", 0.955],
   ["10-door-shut", 0.999],
 ];
 

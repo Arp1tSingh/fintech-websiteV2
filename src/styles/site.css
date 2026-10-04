@@ -335,24 +335,6 @@
   height: 0.2em;
 }
 
-.about__foot {
-  margin-top: 2rem;
-  padding-top: 1.2rem;
-  border-top: 2px solid color-mix(in srgb, var(--color-ink) 30%, transparent);
-}
-
-.about__signers {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 3rem;
-  margin-top: 0.8rem;
-}
-
-.about__signer {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-}
-
 .signature-host,
 .draw-svg-host {
   display: block;
@@ -684,8 +666,8 @@
 .member__photo {
   position: relative;
   aspect-ratio: 4 / 5;
-  /* Capped so the whole committee — three execs plus seven heads — fits one
-     screen without the panel running off the top. */
+  /* Capped so the three execs fit one screen without the panel running off
+     the top. */
   max-height: clamp(140px, 22vh, 230px);
   margin-inline: auto;
   width: fit-content;
@@ -728,16 +710,40 @@
   margin-top: 0.7rem;
 }
 
-.member__swap,
-.plate__swap {
+/* The name is the copy control: tapping it copies the exec's number. A real
+   button (not a div with onClick) so keyboard and touch both work. */
+.member__copy {
+  display: block;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.member__copy:hover {
+  border-bottom-color: color-mix(in srgb, var(--color-parchment) 55%, transparent);
+}
+
+.member__copied {
+  display: block;
+  min-height: 1.1rem;
+  color: var(--color-parchment);
+  opacity: 0.75;
+  margin-top: 0.2rem;
+}
+
+.committee__hint {
+  margin-top: 1rem;
+  opacity: 0.65;
+}
+
+.member__swap {
   position: relative;
   display: grid;
   min-height: 2.4rem;
   align-items: start;
 }
 
-.member__tagline,
-.plate__tagline {
+.member__tagline {
   grid-area: 1 / 1;
   font-style: italic;
   font-size: 0.9rem;
@@ -746,191 +752,20 @@
   transition: opacity 0.25s steps(4), transform 0.25s steps(4);
 }
 
-.member__role,
-.plate__role {
+.member__role {
   grid-area: 1 / 1;
   transition: opacity 0.2s steps(3);
 }
 
 .member:hover .member__tagline,
-.member:focus-within .member__tagline,
-.plate:hover .plate__tagline,
-.plate:focus-within .plate__tagline {
+.member:focus-within .member__tagline {
   opacity: 0.9;
   transform: translateY(0);
 }
 
 .member:hover .member__role,
-.member:focus-within .member__role,
-.plate:hover .plate__role,
-.plate:focus-within .plate__role {
+.member:focus-within .member__role {
   opacity: 0;
-}
-
-.committee__tier + .committee__tier {
-  margin-top: 1.4rem;
-  padding-top: 1.1rem;
-  border-top: 2px solid color-mix(in srgb, var(--color-parchment) 30%, transparent);
-}
-
-.committee__sub {
-  opacity: 0.7;
-  margin-bottom: 0.8rem;
-}
-
-.committee__heads {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 0.8rem;
-}
-
-.plate__body {
-  padding: 0.55rem 0.7rem;
-}
-
-.plate {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.plate__cord {
-  display: block;
-  width: 2px;
-  height: 0.9rem;
-  background: color-mix(in srgb, var(--color-parchment) 45%, transparent);
-}
-
-.plate__body {
-  width: 100%;
-  background: var(--color-ink-soft);
-  border: 2px solid color-mix(in srgb, var(--color-parchment) 35%, transparent);
-  padding: 0.7rem 0.8rem;
-}
-
-.plate__name {
-  font-family: var(--font-display);
-  font-size: 1rem;
-}
-
-/* ----------------------------------------------------------- contact --- */
-
-.contact {
-  position: relative;
-}
-
-.contact__slips {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  gap: 1.2rem;
-  margin: 1.6rem 0;
-}
-
-.slip {
-  position: relative;
-  background: var(--color-parchment);
-  border: 2px solid var(--color-ink);
-  padding: 1rem 1.1rem 1.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.slip__head {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.6rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid color-mix(in srgb, var(--color-ink) 25%, transparent);
-}
-
-.slip__no {
-  color: var(--color-oxblood);
-}
-
-.slip__role {
-  opacity: 0.7;
-}
-
-.slip__name {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-}
-
-.slip__tag {
-  font-style: italic;
-  font-size: 0.9rem;
-  opacity: 0.75;
-}
-
-.slip__tel {
-  margin-top: 0.5rem;
-  align-self: flex-start;
-  border-bottom: 2px solid var(--color-oxblood);
-  color: var(--color-oxblood);
-}
-
-/* Perforated deposit-slip edge. */
-.slip__perf {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.45rem;
-  height: 3px;
-  background-image: radial-gradient(circle, var(--color-ink) 0 1.5px, transparent 1.6px);
-  background-size: 10px 3px;
-  opacity: 0.4;
-}
-
-.contact__foot {
-  padding-top: 1.2rem;
-  border-top: 2px solid color-mix(in srgb, var(--color-ink) 30%, transparent);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 1.5rem;
-  justify-content: space-between;
-}
-
-.contact__inst {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-}
-
-/* The card sits above the wordmark, so the giant outlined type reads as a
-   watermark peeking out from under the contact slips rather than fighting the
-   footer text for the same pixels. */
-.contact .panel {
-  position: relative;
-  z-index: 2;
-}
-
-.contact__wordmark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1.5rem;
-  z-index: 1;
-  pointer-events: none;
-  overflow: hidden;
-  height: 24vh;
-}
-
-.contact__wordmark span {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 17vw, 15rem);
-  line-height: 0.8;
-  letter-spacing: -0.03em;
-  text-align: center;
-  /* Outlined, not filled: -webkit-text-stroke with a transparent fill. */
-  color: transparent;
-  -webkit-text-stroke: 2px color-mix(in srgb, var(--color-ink) 45%, transparent);
-}
-
-.contact__stamp {
-  position: absolute;
-  bottom: 2rem;
-  right: var(--spacing-gutter);
 }
 
 /* ------------------------------------------------------ dev scrubber --- */
@@ -1034,7 +869,7 @@
     min-height: 0;
   }
 
-  /* Direct-card sections (About, Committee, Contact): the card fills the
+  /* Direct-card sections (About, Committee): the card fills the
      runway and its blocks spread down it. */
   .section__panel > .panel {
     flex: 1 1 auto;
@@ -1079,25 +914,13 @@
     margin-bottom: 1.2rem;
   }
 
-  /* The committee carries ten people through a 150vh runway: photos shrink so
-     the whole tier fits instead of spilling into the next section. */
-  .member__photo {
-    max-height: 110px;
-  }
-
+  /* The committee carries three execs through a 150vh runway: photos stay
+     capped so the tier fits instead of spilling into the next section. */
   .committee__execs {
     grid-template-columns: 1fr;
     max-width: 22rem;
     gap: 0.8rem;
     margin-top: 0.8rem;
-  }
-
-  .committee__heads {
-    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
-  }
-
-  .plate__name {
-    font-size: 0.9rem;
   }
 
   .events__list {
@@ -1112,38 +935,6 @@
     position: static;
     margin-top: 1rem;
     align-self: flex-end;
-  }
-
-  .contact > div {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    min-height: 0;
-  }
-
-  /* Absolute like on desktop: in normal flow these two grow the document past
-     its designed height, and the master progress is derived from document
-     height — so every 3D beat would drift out of sync on mobile. */
-  .contact__wordmark {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 18vh;
-    margin-top: 0;
-    overflow: hidden;
-  }
-
-  .contact__stamp {
-    position: absolute;
-    bottom: 1.5rem;
-    right: var(--spacing-gutter);
-    margin-top: 0;
-  }
-
-  .contact__slips {
-    grid-template-columns: 1fr;
   }
 
   .entry__title {
@@ -1193,15 +984,8 @@
     width: 100%;
   }
 
-    .member__tagline,
-    .plate__tagline {
-      opacity: 0.9;
-      transform: none;
-    }
-
-  .contact__wordmark {
-    position: static;
-    height: auto;
-    margin-top: 2rem;
+  .member__tagline {
+    opacity: 0.9;
+    transform: none;
   }
 }

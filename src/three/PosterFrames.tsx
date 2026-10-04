@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 /**
  * Poster frames for the two fallback tiers (DESIGN.md section 8):
  *
- *  - prefers-reduced-motion: no scrubbed camera. Six stills, one per section,
+ *  - prefers-reduced-motion: no scrubbed camera. Five stills, one per section,
  *    crossfaded as sections enter.
- *  - no WebGL at all: the same six stills.
+ *  - no WebGL at all: the same five stills.
  *
  * They are generated FROM the scene rather than shipped as images, so they
  * always match the live thing. If capture fails for any reason the fallback
@@ -25,7 +25,6 @@ const SAMPLES = [
   { label: "Goals / Ideology", progress: 0.38 },
   { label: "Upcoming Events", progress: 0.72 },
   { label: "Committee", progress: 0.85 },
-  { label: "Contact Us", progress: 0.99 },
 ];
 
 let posters: Poster[] = SAMPLES.map((s) => ({ src: null, label: s.label }));

@@ -5,10 +5,10 @@ import { About } from "./sections/About";
 import { Goals } from "./sections/Goals";
 import { Events } from "./sections/Events";
 import { Committee } from "./sections/Committee";
-import { Contact } from "./sections/Contact";
 import { VaultCanvas, detectWebGL } from "./three/VaultCanvas";
 import { runtime, scroll, setPointer, setProgress } from "./three/progress";
 import { initScroll, destroyScroll, scrollToProgress } from "./lib/lenis";
+import { sectionVh } from "./lib/scroll";
 import { ScrollTrigger, prefersReducedMotion, refreshScroll } from "./lib/gsap";
 import { StaticBackdrop } from "./three/StaticBackdrop";
 import { setScrubProgress } from "./three/progress";
@@ -96,7 +96,17 @@ export default function App() {
         <Goals />
         <Events />
         <Committee />
-        <Contact />
+        {/* 0.90-1.00 is the retreat and the door shutting: no DOM beats, just
+            scroll runway, so this section is a labelled spacer exactly like
+            the through-doorway one above. The CONTACT section was removed per
+            the site owner — but its progress range stays, because the range is
+            what drives the 3D retreat. */}
+        <div
+          id="contact"
+          className="spacer"
+          style={{ height: `${sectionVh("contact")}vh` }}
+          aria-hidden="true"
+        />
       </main>
 
       {/*

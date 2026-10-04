@@ -7,7 +7,7 @@ import { VAULT } from "./layout";
 import { scroll } from "./progress";
 import { clamp, smoothstep } from "../lib/scroll";
 import { makeLabelTexture, makeNameplateTexture } from "./geom/textures";
-import { EXECS, NAMEPLATE_NAMES, TEAM_HEADS } from "../content/site";
+import { NAMEPLATE_NAMES, TEAM_HEADS } from "../content/site";
 
 /**
  * The end chamber — DESIGN.md section 4.
@@ -181,10 +181,7 @@ export function NameplateWall() {
     });
   });
 
-  const roles = new Map<string, string>([
-    ...EXECS.map((e) => [e.name, e.role] as const),
-    ...TEAM_HEADS.map((t) => [t.name, t.role] as const),
-  ]);
+  const roles = new Map<string, string>([...TEAM_HEADS.map((t) => [t.name, t.role] as const)]);
 
   return (
     <group ref={wall} position={[0, 0, VAULT.chamberBackZ + 0.12]}>
@@ -205,7 +202,7 @@ export function NameplateWall() {
 
 const plateCache = new Map<string, import("three").Texture>();
 
-/** Nameplate textures are generated once and shared; there are only ten. */
+/** Nameplate textures are generated once and shared; there are only seven. */
 function nameplateTexture(name: string, role: string) {
   const key = `${name}|${role}`;
   let t = plateCache.get(key);

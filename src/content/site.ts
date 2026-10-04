@@ -26,8 +26,6 @@ export const ABOUT = {
   auditLine: "Audited by",
 } as const;
 
-export const CONVENERS = ["Dr. Nayana Mahajan", "Prof. Manoj Suryavanshi"] as const;
-
 /** Goals / Ideology — one featured vault drawer each, in order. */
 export interface Goal {
   entry: string;
@@ -168,21 +166,15 @@ export const TEAM_HEADS: TeamHead[] = [
 
 /* ------------------------------------------------------------- chrome ----- */
 
-/** DESIGN_BRIEF.md section 3.0 — verbatim. */
-export const TICKER =
-  "BIDBLAZE · 13 TEAMS · ₹29 CR KOHLI SALE · BITCOIN INDIA TOUR · 80 ATTENDEES · SCAM TANK · BUILD WITH N8N 7 OCT · BLACK LEDGER 12 OCT";
-
 /**
  * TODO(committee): confirm the branch list. These are the departments we
  * believe run at VIT — swap freely, the marquee is generated from this array.
  */
 export const BRANCHES = ["COMP", "IT", "EXCS", "EXTC", "MECH", "CIV", "AIDS", "AIML"];
 
-/** Nameplate wall behind the Committee panel (3D, geometry only). */
-export const NAMEPLATE_NAMES = [
-  ...EXECS.map((e) => e.name),
-  ...TEAM_HEADS.map((t) => t.name),
-];
+/** Nameplate wall behind the Committee panel (3D, geometry only): the seven
+ * team heads. The execs live in the DOM panel in front, not on the wall. */
+export const NAMEPLATE_NAMES = [...TEAM_HEADS.map((t) => t.name)];
 
 /**
  * The Record (DESIGN_BRIEF.md section 3.4) is skipped for now, per the build
@@ -198,12 +190,6 @@ export const RECORD = {
     { value: 29, prefix: "₹", suffix: " CR", label: "Kohli sale" },
     { value: 576, suffix: " vs 569 pts", label: "Auction spread" },
   ],
-} as const;
-
-export const FOOTER = {
-  closing: "GET IN TOUCH",
-  line: "Vidyalankar Institute of Technology",
-  auditedBy: "Faculty convener",
 } as const;
 
 /* --------------------------------------------------------------- helpers -- */

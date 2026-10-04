@@ -100,12 +100,27 @@ export function makeNameplateTexture(name: string, role: string): CanvasTexture 
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
 
-  ctx.font = '600 52px "Fraunces Variable", Georgia, serif';
+  // Fit to the plate: long names and roles ("PR & OPERATIONS HEAD") shrink
+  // instead of running off the tag's edge.
+  const fit = (text: string, weight: number, family: string, start: number, maxWidth: number) => {
+    let size = start;
+    for (let pass = 0; pass < 8; pass++) {
+      ctx.font = `${weight} ${size}px ${family}`;
+      if (ctx.measureText(text).width <= maxWidth) break;
+      size = Math.max(10, Math.floor((size * maxWidth) / ctx.measureText(text).width));
+    }
+    return size;
+  };
+
+  const nameSize = fit(name, 600, '"Fraunces Variable", Georgia, serif', 52, 512 * 0.9);
+  ctx.font = `600 ${nameSize}px "Fraunces Variable", Georgia, serif`;
   ctx.fillText(name, 256, 74);
 
+  const spacedRole = [...role].join(" ");
   ctx.globalAlpha = 0.72;
-  ctx.font = '500 30px "JetBrains Mono Variable", monospace';
-  ctx.fillText([...role].join(" "), 256, 132);
+  const roleSize = fit(spacedRole, 500, '"JetBrains Mono Variable", monospace', 30, 512 * 0.9);
+  ctx.font = `500 ${roleSize}px "JetBrains Mono Variable", monospace`;
+  ctx.fillText(spacedRole, 256, 132);
   ctx.globalAlpha = 1;
 
   ctx.globalAlpha = 0.4;

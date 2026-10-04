@@ -52,7 +52,9 @@ const BEATS = [
   ["goals", 0.3, 0.62, "dolly the corridor, stop at five drawers"],
   ["events", 0.62, 0.78, "arc around the two lockers"],
   ["committee", 0.78, 0.9, "rises slightly in the chamber"],
-  ["contact", 0.9, 1.0, "pulls back out and the door shuts"],
+  // The Contact DOM section is gone, but its 0.90-1.00 range still drives the
+  // retreat and the door shutting — the runway stays, the section does not.
+  ["outro", 0.9, 1.0, "pulls back out and the door shuts"],
 ];
 
 const browser = await chromium.launch();
@@ -241,7 +243,7 @@ const SHOTS = [
   ["d-goal-01", 0.375],
   ["e-chamber", 0.7],
   ["f-committee", 0.8],
-  ["g-contact", 0.955],
+  ["g-outro", 0.955],
 ];
 for (const [name, f] of SHOTS) {
   await scrollTo(Math.round(maxScroll * f));

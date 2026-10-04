@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { SectionShell, Panel } from "../components/SectionShell";
-import { SignatureRule } from "../components/Stamp";
 import { gsap, prefersReducedMotion } from "../lib/gsap";
-import { ABOUT, CONVENERS } from "../content/site";
+import { ABOUT } from "../content/site";
 
 /**
  * About Us — brief section 3.1.
@@ -62,7 +61,6 @@ function Words({ text }: { text: string }) {
 
 export function About() {
   const bodyRef = useRef<HTMLParagraphElement>(null);
-  const footRef = useRef<HTMLElement>(null);
 
   const parts = splitAbout(ABOUT.body, ABOUT.strike, ABOUT.underline);
 
@@ -161,18 +159,6 @@ export function About() {
             )}
           </span>
         </p>
-
-        <footer className="about__foot" ref={footRef}>
-          <p className="label">{ABOUT.auditLine}</p>
-          <ul className="about__signers">
-            {CONVENERS.map((c) => (
-              <li key={c}>
-                <span className="about__signer">{c}</span>
-                <SignatureRule />
-              </li>
-            ))}
-          </ul>
-        </footer>
       </Panel>
     </SectionShell>
   );

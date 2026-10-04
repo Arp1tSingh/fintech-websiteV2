@@ -37,7 +37,7 @@ export const RANGES: ScrollRange[] = [
   { id: "goals", label: "Goals / Ideology", start: 0.3, end: 0.62 },
   { id: "events", label: "Upcoming Events", start: 0.62, end: 0.78 },
   { id: "committee", label: "Committee", start: 0.78, end: 0.9 },
-  { id: "contact", label: "Contact Us", start: 0.9, end: 1.0 },
+  { id: "contact", label: "", start: 0.9, end: 1.0 },
 ];
 
 /**
